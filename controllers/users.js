@@ -12,6 +12,28 @@ const getUsers = (req, res) => {
     })
 }
 
+const getUserById = (req, res) => {
+  let sql = `SELECT ??, ??, ??, ?? FROM ?? WHERE ?? = ${req.params.id}`
+  sql = mysql.format(sql, ['id', 'username', 'email', 'blurb', 'users', 'id'])
+  pool.query(sql, (err, rows) => {
+    if (err) return handleSQLError(res, err)
+    return res.json(rows);
+  })
+}
+
+const createUser = (req, res) => {
+  pool.query('INSERT INTO users SET ?', {
+    username: "emilyannemoses", 
+    email: "eamoses@gmail.com",
+    blurb: "This is some test info for a fake user"
+  }, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.json({ newId: results.insertId });
+  })
+}
+
 module.exports = {
-    getUsers
+    getUsers,
+    getUserById,
+    createUser
 }

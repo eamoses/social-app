@@ -10,7 +10,7 @@ class Connection {
         host: '34.67.210.117',
         user: 'root',
         password: password,
-        database: 'admin',
+        database: 'social_app',
         debug: false
       })
 
